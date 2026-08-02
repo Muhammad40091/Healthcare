@@ -1,0 +1,46 @@
+# Client Parameterization Template
+# Copy to <client_id>.yaml and fill in per Phase 0 discovery.
+# NEVER commit a real filled-in client config file — use secrets manager
+# / encrypted config store for anything containing real endpoints,
+# contract rates, or credentials. This template contains placeholders only.
+
+client_id: "REPLACE_ME"
+facility_name: "REPLACE_ME"
+
+ehr:
+  system: "epic"            # epic | cerner | meditech
+  fhir_base_url: "REPLACE_ME"
+  auth_type: "oauth2"
+
+payer_mix:
+  medicare_pct: 0.0
+  medicaid_pct: 0.0
+  commercial_pct: 0.0
+  self_pay_pct: 0.0
+
+clinical_specialty:
+  primary: "REPLACE_ME"     # e.g. orthopedics, oncology, cardiology
+  icd10_feature_set: "specialty_tuned"
+
+top_denial_categories:
+  - "prior_auth"
+  - "coding"
+  - "eligibility"
+
+monthly_claim_volume: 0
+current_clean_claim_rate: 0.0
+
+hitl_thresholds:
+  tier1_confidence_min: 0.95
+  tier2_confidence_min: 0.80
+  tier2_sla_seconds: 120
+  tier3_sla_seconds: 900
+  director_value_threshold: 25000
+
+infra:
+  kubernetes_namespace: "REPLACE_ME"
+  vector_store_url: "REPLACE_ME"
+
+shadow_mode:
+  enabled: true
+  duration_days: 90

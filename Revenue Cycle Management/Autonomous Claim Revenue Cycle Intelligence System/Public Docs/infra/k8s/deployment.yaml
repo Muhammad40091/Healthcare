@@ -1,0 +1,32 @@
+# Placeholder Kubernetes deployment manifest.
+# Scaling config is derived per-client from client_config (monthly claim
+# volume tier: 5K / 50K / 200K). Fill in resource requests/limits and
+# replica counts per the infra sizing blueprint produced in Phase 0.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: denialiq-engine
+  namespace: REPLACE_ME
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: denialiq-engine
+  template:
+    metadata:
+      labels:
+        app: denialiq-engine
+    spec:
+      containers:
+        - name: denialiq-engine
+          image: REPLACE_ME/denialiq-engine:latest
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+          envFrom:
+            - secretRef:
+                name: denialiq-engine-secrets

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "denialiq-engine"
+version = "0.1.0"
+description = "PRIVATE — Production DenialIQ Revenue Cycle Intelligence engine"
+authors = [{ name = "Muhammad Abbas", email = "muhammadabbas40093@gmail.com" }]
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
