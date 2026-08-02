@@ -1,0 +1,2 @@
+# No external dependencies required — uses Python standard library only.
+# Kept here as a placeholder for future additions (e.g. pandas, faker).

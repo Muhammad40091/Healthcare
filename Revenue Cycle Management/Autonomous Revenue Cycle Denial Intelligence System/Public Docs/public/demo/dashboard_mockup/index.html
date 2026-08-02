@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>ARCI Revenue Intelligence Dashboard — Mockup</title>
+<style>
+  :root {
+    --bg: #14163a;
+    --card: #1c1f4d;
+    --accent: #4b56f2;
+    --text: #f2f3fb;
+    --muted: #a3a7d6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px;
+  }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  p.subtitle { color: var(--muted); margin-top: 0; margin-bottom: 28px; font-size: 14px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 18px 20px;
+    border: 1px solid #2a2e66;
+  }
+  .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card .value { font-size: 28px; font-weight: 700; margin-top: 6px; color: var(--accent); }
+  .card .delta { font-size: 12px; color: #6bd08a; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; padding: 10px 14px; font-size: 13px; }
+  th { color: var(--muted); border-bottom: 1px solid #2a2e66; font-weight: 600; }
+  tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+  .badge { padding: 2px 8px; border-radius: 999px; font-size: 11px; }
+  .badge.denied { background: #4a1f2b; color: #f28b9e; }
+  .badge.ok { background: #1f3d2b; color: #6bd08a; }
+  footer { margin-top: 24px; color: var(--muted); font-size: 11px; }
+</style>
+</head>
+<body>
+  <h1>ARCI — Revenue Intelligence Dashboard (Mockup)</h1>
+  <p class="subtitle">Static demo populated with placeholder values — not connected to any live system.</p>
+
+  <div class="grid" id="metrics"></div>
+
+  <table id="claims-table">
+    <thead>
+      <tr><th>Claim ID</th><th>Payer</th><th>CPT</th><th>Risk</th><th>Status</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <footer>All figures are simulation-based placeholders for portfolio demonstration only.</footer>
+
+<script>
+  const metrics = [
+    { label: "Denial Rate", value: "6.8%", delta: "↓ from 14.2% baseline" },
+    { label: "Appeal Success Rate", value: "84.5%", delta: "↑ from 41% baseline" },
+    { label: "Clean Claim Rate", value: "93.1%", delta: "↑ 22 pts" },
+    { label: "A/R Days", value: "38", delta: "↓ from 54 days" },
+  ];
+
+  const claims = [
+    { id: "CLM-00042", payer: "Aetna", cpt: "99214", risk: 0.82, status: "denied" },
+    { id: "CLM-00043", payer: "Cigna", cpt: "93000", risk: 0.21, status: "ok" },
+    { id: "CLM-00044", payer: "UnitedHealthcare", cpt: "80053", risk: 0.55, status: "ok" },
+    { id: "CLM-00045", payer: "Humana", cpt: "71046", risk: 0.91, status: "denied" },
+    { id: "CLM-00046", payer: "BlueCross-Synthetic", cpt: "36415", risk: 0.12, status: "ok" },
+  ];
+
+  const metricsEl = document.getElementById("metrics");
+  metrics.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<div class="label">${m.label}</div><div class="value">${m.value}</div><div class="delta">${m.delta}</div>`;
+    metricsEl.appendChild(card);
+  });
+
+  const tbody = document.querySelector("#claims-table tbody");
+  claims.forEach(c => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${c.id}</td><td>${c.payer}</td><td>${c.cpt}</td><td>${c.risk}</td>
+      <td><span class="badge ${c.status}">${c.status === "denied" ? "Denied" : "Clean"}</span></td>`;
+    tbody.appendChild(tr);
+  });
+</script>
+</body>
+</html>
